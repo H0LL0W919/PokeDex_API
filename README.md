@@ -1,7 +1,7 @@
 # PokeDex_API_Git
  A PokeDex Program using PokeAPI (https://pokeapi.co)
 
- Student project for Programming Application Interfaces, learning how to work with APIs
+ Student project for Programming Application Programming Interfaces (PRAPI), learning how to work with APIs
 
  This project contains a PokeDex system.
  The user can manually search via a user input field.
