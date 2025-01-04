@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public static class PokemonUtils
+public static class PokemonUtility
 {
     private const string ALL_POKEMON_URL = "https://pokeapi.co/api/v2/pokemon?limit=1302";
 
-    private const int MaxStatValue = 255;
+    private const int maxStatValue = 255;
 
     public static IEnumerator FetchAllPokemonNames(System.Action<List<string>> callback)
     {
@@ -85,7 +85,7 @@ public static class PokemonUtils
     public static float NormalizeStat(string statName, Stat[] stats)
     {
         var stat = stats.FirstOrDefault(s => s.stat.name == statName);
-        return stat != null ? (stat.base_stat / (float)MaxStatValue) * 100f : 0f;
+        return stat != null ? (stat.base_stat / (float)maxStatValue) * 100f : 0f;
     }
 
     public static void UpdateStatBars(Stat[] stats, Slider[] statBars)

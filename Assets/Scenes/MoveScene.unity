@@ -1193,7 +1193,7 @@ MonoBehaviour:
   pokemonNameText: {fileID: 2141990853}
   movesContent: {fileID: 1618773774}
   movePrefab: {fileID: 335546086}
-  spriteImage: {fileID: 1519249586}
+  sprite: {fileID: 1519249586}
 --- !u!1 &1618773773
 GameObject:
   m_ObjectHideFlags: 0

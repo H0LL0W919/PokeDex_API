@@ -11,7 +11,7 @@ public class MoveController : MonoBehaviour
     public Text pokemonNameText;
     public Transform movesContent;
     public GameObject movePrefab;
-    public Image spriteImage;
+    public Image sprite;
 
     [Header("API Endpoints")]
     private const string API_URL = "https://pokeapi.co/api/v2/pokemon/";
@@ -45,7 +45,7 @@ public class MoveController : MonoBehaviour
     {
         pokemonNameText.text = $"{pokemon.name.FirstCharacterToUpper()} Moves";
 
-        StartCoroutine(PokemonUtils.LoadSprite(pokemon.sprites.front_default, spriteImage));
+        StartCoroutine(PokemonUtility.LoadSprite(pokemon.sprites.front_default, sprite));
 
         foreach (Transform child in movesContent) //clears previous moves
         {
@@ -128,7 +128,6 @@ public class MoveController : MonoBehaviour
 public class MoveWrapper
 {
     public MoveDetail move;
-    public string url;
 }
 
 [System.Serializable]

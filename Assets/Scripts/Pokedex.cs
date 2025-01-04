@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -114,15 +112,15 @@ public class Pokedex : MonoBehaviour
         UnityWebRequest request = UnityWebRequest.Get(API_URL + search); //sends request to api's url + entered pokemon name or id
         yield return request.SendWebRequest(); //waits for web request to complete before moving on
 
-        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-        {
-            Debug.LogError("Error: " + request.error);
-            nameText.text = "Error: Pokemon Not Found!"; //if there's a connection error or protocol error a log message will print to console
-        }
-        else
+        if (request.result == UnityWebRequest.Result.Success)
         {
             dropDown.gameObject.SetActive(false); //hiding suggestions
             ParseAndDisplayData(request.downloadHandler.text); //retrieves JSON response from API
+        }
+        else
+        {
+            Debug.LogError("Error: " + request.error);
+            nameText.text = "Error: Pokemon Not Found!"; //if there's a connection error or protocol error a log message will print to console
         }
     }
 
@@ -149,27 +147,27 @@ public class Pokedex : MonoBehaviour
         FetchTypeStrengths(types);
 
         //update sliders with stat values
-        PokemonUtils.UpdateStatBars(pokemon.stats, pokemonStatBars);
+        PokemonUtility.UpdateStatBars(pokemon.stats, pokemonStatBars);
 
         //load and display sprites
-        StartCoroutine(PokemonUtils.LoadSprite(pokemon.sprites.front_default, spriteImage));
+        StartCoroutine(PokemonUtility.LoadSprite(pokemon.sprites.front_default, spriteImage));
 
         FetchRegionAvailability(currentPokemonID);
     }
 
     void FetchAllPokemonNames()
     {
-        StartCoroutine(PokemonUtils.FetchAllPokemonNames(names => pokemonNames = names));
+        StartCoroutine(PokemonUtility.FetchAllPokemonNames(names => pokemonNames = names));
     }
 
     void OnInputFieldChanged(string input)
     {
-        PokemonUtils.ShowSuggestions(input, pokemonNames, dropDown);
+        PokemonUtility.ShowSuggestions(input, pokemonNames, dropDown);
     }
 
     void OnSuggestionSelected(int index)
     {
-        PokemonUtils.SetPokemonName(index, dropDown, userInput);
+        PokemonUtility.SetPokemonName(index, dropDown, userInput);
     }
 
     void FetchRegionAvailability(int pokemonID)
@@ -313,8 +311,8 @@ public class PokemonData //Structure of pokemon data in the api response - data 
     public string name;
     public float height;
     public float weight;
-    public Stat[] stats; //array used due to having 5 base stat values
-    public TypeWrapper[] types; // ^< 2 nested classes needed to match the JSONs structure for deserialization - JSON response is hierarchical meaning it contains nested objects.  Classes mirror the structure to pull the correct data out
+    public Stat[] stats; //array used due to having 6 base stat values
+    public TypeWrapper[] types; // ^< 2 nested classes needed to match the JSONs structure for deserialization - JSON response contains nested objects.  Classes mirror the structure to pull the correct data out
     public Sprites sprites;
     public MoveWrapper[] moves;
 }

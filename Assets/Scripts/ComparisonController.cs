@@ -32,15 +32,15 @@ public class ComparisonController : MonoBehaviour
         compareButton.onClick.AddListener(ComparePokemon);
 
         //fetching all pokemon names
-        StartCoroutine(PokemonUtils.FetchAllPokemonNames(names => pokemonNames = names));
+        StartCoroutine(PokemonUtility.FetchAllPokemonNames(names => pokemonNames = names));
 
         //input listeners for autocomplete
-        pokemon1Input.onValueChanged.AddListener(input => PokemonUtils.ShowSuggestions(input, pokemonNames, dropDown1));
-        pokemon2Input.onValueChanged.AddListener(input => PokemonUtils.ShowSuggestions(input, pokemonNames, dropDown2));
+        pokemon1Input.onValueChanged.AddListener(input => PokemonUtility.ShowSuggestions(input, pokemonNames, dropDown1));
+        pokemon2Input.onValueChanged.AddListener(input => PokemonUtility.ShowSuggestions(input, pokemonNames, dropDown2));
 
         // listeners for dropdown selection
-        dropDown1.onValueChanged.AddListener(index => PokemonUtils.SetPokemonName(index, dropDown1, pokemon1Input));
-        dropDown2.onValueChanged.AddListener(index => PokemonUtils.SetPokemonName(index, dropDown2 , pokemon2Input));
+        dropDown1.onValueChanged.AddListener(index => PokemonUtility.SetPokemonName(index, dropDown1, pokemon1Input));
+        dropDown2.onValueChanged.AddListener(index => PokemonUtility.SetPokemonName(index, dropDown2 , pokemon2Input));
     }
 
     void ComparePokemon()
@@ -91,14 +91,14 @@ public class ComparisonController : MonoBehaviour
         if (slot == 1)
         {
             pokemon1StatText.text = stats;
-            StartCoroutine(PokemonUtils.LoadSprite(pokemon.sprites.front_default, pokemon1Sprite));
-            PokemonUtils.UpdateStatBars(pokemon.stats, pokemon1StatBars);
+            StartCoroutine(PokemonUtility.LoadSprite(pokemon.sprites.front_default, pokemon1Sprite));
+            PokemonUtility.UpdateStatBars(pokemon.stats, pokemon1StatBars);
         }
         else if (slot == 2)
         {
             pokemon2StatText.text = stats;
-            StartCoroutine(PokemonUtils.LoadSprite(pokemon.sprites.front_default, pokemon2Sprite));
-            PokemonUtils.UpdateStatBars(pokemon.stats, pokemon2StatBars);
+            StartCoroutine(PokemonUtility.LoadSprite(pokemon.sprites.front_default, pokemon2Sprite));
+            PokemonUtility.UpdateStatBars(pokemon.stats, pokemon2StatBars);
         }
 
     }
