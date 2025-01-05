@@ -115,7 +115,7 @@ public class Pokedex : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             dropDown.gameObject.SetActive(false); //hiding suggestions
-            ParseAndDisplayData(request.downloadHandler.text); //retrieves JSON response from API
+            DisplayData(request.downloadHandler.text); //retrieves JSON response from API
         }
         else
         {
@@ -126,7 +126,7 @@ public class Pokedex : MonoBehaviour
 
     private string currentPokemonName;
 
-    void ParseAndDisplayData(string json)
+    void DisplayData(string json)
     {
         //Deserializing json into a dynamic object
         var pokemon = JsonUtility.FromJson<PokemonData>(json); //creates a pokemon variables which holds Pokemon Data objects listed in class which are extracted from Json
@@ -150,7 +150,7 @@ public class Pokedex : MonoBehaviour
         PokemonUtility.UpdateStatBars(pokemon.stats, pokemonStatBars);
 
         //load and display sprites
-        StartCoroutine(PokemonUtility.LoadSprite(pokemon.sprites.front_default, spriteImage));
+        StartCoroutine(PokemonUtility.GetSprite(pokemon.sprites.front_default, spriteImage));
 
         FetchRegionAvailability(currentPokemonID);
     }

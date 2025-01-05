@@ -45,7 +45,7 @@ public class MoveController : MonoBehaviour
     {
         pokemonNameText.text = $"{pokemon.name.FirstCharacterToUpper()} Moves";
 
-        StartCoroutine(PokemonUtility.LoadSprite(pokemon.sprites.front_default, sprite));
+        StartCoroutine(PokemonUtility.GetSprite(pokemon.sprites.front_default, sprite));
 
         foreach (Transform child in movesContent) //clears previous moves
         {

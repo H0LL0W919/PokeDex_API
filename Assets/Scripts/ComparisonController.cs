@@ -91,13 +91,13 @@ public class ComparisonController : MonoBehaviour
         if (slot == 1)
         {
             pokemon1StatText.text = stats;
-            StartCoroutine(PokemonUtility.LoadSprite(pokemon.sprites.front_default, pokemon1Sprite));
+            StartCoroutine(PokemonUtility.GetSprite(pokemon.sprites.front_default, pokemon1Sprite));
             PokemonUtility.UpdateStatBars(pokemon.stats, pokemon1StatBars);
         }
         else if (slot == 2)
         {
             pokemon2StatText.text = stats;
-            StartCoroutine(PokemonUtility.LoadSprite(pokemon.sprites.front_default, pokemon2Sprite));
+            StartCoroutine(PokemonUtility.GetSprite(pokemon.sprites.front_default, pokemon2Sprite));
             PokemonUtility.UpdateStatBars(pokemon.stats, pokemon2StatBars);
         }
 

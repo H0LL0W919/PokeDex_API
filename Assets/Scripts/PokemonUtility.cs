@@ -62,7 +62,7 @@ public static class PokemonUtility
         }
     }
 
-    public static IEnumerator LoadSprite(string url, Image targetImage)
+    public static IEnumerator GetSprite(string url, Image targetImage)
     {
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
         yield return request.SendWebRequest();
