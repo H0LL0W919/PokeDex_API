@@ -139,7 +139,7 @@ public class Pokedex : MonoBehaviour
         nameText.text = "Name: " + pokemon.name.ToUpper();
         typesText.text = "Type(s): " + string.Join(", ", pokemon.types.Select(t => t.type.name)).ToUpper(); //Array of typewrapper objs, each typewrapper contains typedetail obj which has a name property, t = each item in pokemon.types, t.type accesses typedetail & t.type.name accesses the name property of the type e.g. fire, water
         heightText.text = "Height: " + (pokemon.height / 10) + "m"; //data returns decimetres
-        weightText.text = "Weight: " + (pokemon.weight / 10) + "kg"; //data returns hectograms / 10 to get kg
+        weightText.text = "Weight: " + (pokemon.weight / 10) + "kg"; //data returns hectograms 
         statText.text = "Base Stats: \n" + string.Join("\n", pokemon.stats.Select(s => s.stat.name + ": " + s.base_stat)).ToUpper(); //s represents each item in pokemon.stats, .name provides name of stat beside the base stats value
 
         string[] types = pokemon.types.Select(t => t.type.name).ToArray();
@@ -150,24 +150,24 @@ public class Pokedex : MonoBehaviour
         PokemonUtility.UpdateStatBars(pokemon.stats, pokemonStatBars);
 
         //load and display sprites
-        StartCoroutine(PokemonUtility.GetSprite(pokemon.sprites.front_default, spriteImage));
+        StartCoroutine(PokemonUtility.DisplaySprite(pokemon.sprites.front_default, spriteImage));
 
         FetchRegionAvailability(currentPokemonID);
     }
 
     void FetchAllPokemonNames()
     {
-        StartCoroutine(PokemonUtility.FetchAllPokemonNames(names => pokemonNames = names));
+        StartCoroutine(PokemonUtility.GetAllPokémonNames(names => pokemonNames = names));
     }
 
     void OnInputFieldChanged(string input)
     {
-        PokemonUtility.ShowSuggestions(input, pokemonNames, dropDown);
+        PokemonUtility.DisplayNameSuggestions(input, pokemonNames, dropDown);
     }
 
     void OnSuggestionSelected(int index)
     {
-        PokemonUtility.SetPokemonName(index, dropDown, userInput);
+        PokemonUtility.SetPokémonName(index, dropDown, userInput);
     }
 
     void FetchRegionAvailability(int pokemonID)
@@ -381,17 +381,17 @@ public class LocationWrapper
 }
 
 //Code that was changed
-//void ShowSpellingSuggestion(string input)
+//void SpellingSuggestion(string input)
 //{
 //    if (pokemonNames == null || pokemonNames.Count == 0)
 //        return;
 
-//    string closestName = pokemonNames.OrderBy(name => GetLevenshteinDistance(input, name)).FirstOrDefault();
+//    string closestName = pokemonNames.OrderBy(name => LevenshteinCalc(input, name)).FirstOrDefault();
 
 //    suggestionText.text = "Did you mean: " + closestName + "?"; 
 //}
 
-//int GetLevenshteinDistance(string a, string b) //string similarity algorithm - a = source string - b = target string
+//int LevenshteinCalc(string a, string b) //string similarity algorithm - a = source string - b = target string
 //{
 //    if (string.IsNullOrEmpty(a)) //edge cases
 //        return b.Length;

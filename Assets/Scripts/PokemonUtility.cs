@@ -11,7 +11,7 @@ public static class PokemonUtility
 
     private const int maxStatValue = 255;
 
-    public static IEnumerator FetchAllPokemonNames(System.Action<List<string>> callback)
+    public static IEnumerator GetAllPokémonNames(System.Action<List<string>> callback)
     {
         UnityWebRequest request = UnityWebRequest.Get(ALL_POKEMON_URL);
         yield return request.SendWebRequest();
@@ -25,11 +25,11 @@ public static class PokemonUtility
         else
         {
             Debug.LogError("Failed to fetch pokemon names: " + request.error);
-            callback(new List<string>()); //passing empty list in case of error
+            callback(new List<string>()); //passing empty list in case of error to avoid adding duplicates to the list.
         }
     }
 
-    public static void ShowSuggestions(string input, List<string> pokemonNames, Dropdown dropdown)
+    public static void DisplayNameSuggestions(string input, List<string> pokemonNames, Dropdown dropdown)
     {
         if (string.IsNullOrEmpty(input))
         {
@@ -53,7 +53,7 @@ public static class PokemonUtility
 
     }
 
-    public static void SetPokemonName(int index, Dropdown dropdown, InputField inputField)
+    public static void SetPokémonName(int index, Dropdown dropdown, InputField inputField)
     {
         if (index >= 0 && index < dropdown.options.Count)
         {
@@ -62,7 +62,7 @@ public static class PokemonUtility
         }
     }
 
-    public static IEnumerator GetSprite(string url, Image targetImage)
+    public static IEnumerator DisplaySprite(string url, Image targetImage)
     {
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
         yield return request.SendWebRequest();
@@ -82,7 +82,7 @@ public static class PokemonUtility
         }
     }
 
-    public static float NormalizeStat(string statName, Stat[] stats)
+    public static float NormaliseStats(string statName, Stat[] stats)
     {
         var stat = stats.FirstOrDefault(s => s.stat.name == statName);
         return stat != null ? (stat.base_stat / (float)maxStatValue) * 100f : 0f;
@@ -92,12 +92,12 @@ public static class PokemonUtility
     {
         if (statBars == null || statBars.Length < 6) return;
 
-        statBars[0].value = NormalizeStat("hp", stats);
-        statBars[1].value = NormalizeStat("attack", stats);
-        statBars[2].value = NormalizeStat("defense", stats);
-        statBars[3].value = NormalizeStat("special-attack", stats);
-        statBars[4].value = NormalizeStat("special-defense", stats);
-        statBars[5].value = NormalizeStat("speed", stats);
+        statBars[0].value = NormaliseStats("hp", stats);
+        statBars[1].value = NormaliseStats("attack", stats);
+        statBars[2].value = NormaliseStats("defense", stats);
+        statBars[3].value = NormaliseStats("special-attack", stats);
+        statBars[4].value = NormaliseStats("special-defense", stats);
+        statBars[5].value = NormaliseStats("speed", stats);
     }
 }
 
